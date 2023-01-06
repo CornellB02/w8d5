@@ -103,14 +103,16 @@ Function.prototype.myBind = function (context) {
     }
 }
 
-function curriedSum(numArgs) {
+function curriedSum(args) {
     const numbers = [];
-    return function _curriedSum(num1) {
-        numbers.push(num1);
-        if (numbers.length >= numArgs) {
-            return numbers.reduce((a, b) => a + b);
+    return function _curriedSum(num) {
+        numbers.push(num);
+        if (numbers.length >= args) {
+            let res = 0 
+            numbers.forEach(num => res += num)
+            return res;
         } else {
-            return numbers;
+            return _curriedSum;
         }
     }
 }
