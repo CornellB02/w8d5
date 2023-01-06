@@ -107,7 +107,8 @@ function curriedSum(args) {
     const numbers = [];
     return function _curriedSum(num) {
         numbers.push(num);
-        if (numbers.length >= args) {
+        if (numbers.length === args) {
+
             let res = 0 
             numbers.forEach(num => res += num)
             return res;
@@ -115,6 +116,21 @@ function curriedSum(args) {
             return _curriedSum;
         }
     }
+}
+
+Function.prototype.curry = function (numArgs) {
+    let numbers = []
+    let that = this
+    return function _curry() {   
+        numbers.push(num);
+        if (numbers.length === numArgs) {
+            that.apply(null, numbers)
+
+        } else {
+            return _curry;
+        }
+    }
+    // return _curry;
 }
 
 const sum = curriedSum(4);
